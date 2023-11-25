@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Question</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Georgia, serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .converter-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+<div class="container-fluid" id="quiz" >
+    <a href="index.html" class="btn btn-success mb-5">Go to home page</a>
+    <div id="question">
+    </div>
+
+    <div id="answers">
+    </div>
+    <div id="alert">
+    </div>
+
+
+    <div class="mt-4">
+        <button id="confirmButton" class="btn btn-primary" disabled>Confirm</button>
+        <button id="nextQuestionButton" class="btn btn-primary" style="display: none">Next Question</button>
+        <a href="score.html" id="getScore" class="btn btn-primary" style="display: none">Get score!</a>
+    </div>
+
+
+    <div id="result">
+
+    </div>
+</div>
+
+
+
+
+<script src="question.js" type="module"></script>
+</body>
+</html>
