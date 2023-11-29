@@ -69,7 +69,8 @@ export class QuizQuestion
 
         // compare between the user answer and the correct answer and show the result
         let correctAnswer = this.questionData.correct_answer;
-        this.compareResult(selectedAnswerValue, correctAnswer)
+        if(selectedAnswerValue) this.compareResult(selectedAnswerValue, correctAnswer)
+
 
         // to check if last question or not to show get score button or next question button
         this.confirmButton.style.display = 'none';
@@ -130,5 +131,23 @@ export class QuizQuestion
             localStorage.setItem("actual_question", JSON.stringify(actualQuestionIndex));
             location.reload()
         })
+    }
+
+    countDownTimer(count)
+    {
+        let countDiv = document.getElementById("timer")
+        let radioButtons = document.getElementsByClassName('answer');
+        let that = this;
+        const timer = setInterval(function() {
+            count--;
+            if (  count !== 0) {
+                countDiv.innerHTML ='0' +  count
+            } else {
+                clearInterval(timer);
+                countDiv.innerText= "Time Is UP!"
+                that.submitUserAnswer(radioButtons, null)
+            }
+
+        }, 1000);
     }
 }

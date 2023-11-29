@@ -17,11 +17,19 @@ for (let i = 0 ; i< data.length ; i++){
  let correctAnswers = data[i].correct_answer ;
  let questionNumber = i + 1;
  let selectedAnswer = localStorage.getItem(`answer${questionNumber}`);
-
+if(selectedAnswer)
+{
  dataDiv.innerHTML += `<div><p>Question  ${i+1} :${question}</p>
                            <p style="background-color: ${correctAnswers === selectedAnswer ? 'green' : 'red'} ">Your Answer : ${selectedAnswer}</p>
-                            <p style="background-color: green; display : ${correctAnswers === selectedAnswer ? 'none' : 'block'}">Correct Answer : ${correctAnswers} </p>
+                            <p style="background-color: green; display : ${(correctAnswers === selectedAnswer) ? 'none' : 'block'}">Correct Answer : ${correctAnswers} </p>                      
                           </div>`
+} else {
+ dataDiv.innerHTML += `<div><p>Question  ${i + 1} :${question}</p>
+                           <p style="background-color: #c53a06">Your Answer : Unanswered</p>
+                            <p style="background-color: green">Correct Answer : ${correctAnswers} </p>                      
+                          </div>`
+}
+
 }
 
 
