@@ -18,8 +18,10 @@ export class QuizQuestion
         let question = this.questionData.question;
         let correctAnswer = this.questionData.correct_answer;
         let incorrectAnswers = this.questionData.incorrect_answers;
+        //create a copies of incorrect Answers and  add the correct answer to create list of answers
         let allAnswers = JSON.parse(JSON.stringify(incorrectAnswers));
         allAnswers.push(correctAnswer)
+        //generate map for answer option , create radio buttons for selection
         let answersHTML = "";
         allAnswers.map(
             (answer) => {
@@ -31,8 +33,9 @@ export class QuizQuestion
     }
 
     confirmButtonClickEvent(questionNumber)
-    {
+    {  // Add a click event listener to the Confirm button
         this.confirmButton.addEventListener('click', () => {
+            // Get all radio buttons representing the answer options
             let radioButtons = document.getElementsByClassName('answer');
             let selectedAnswerValue;
             // disable all radio answers
@@ -42,8 +45,10 @@ export class QuizQuestion
                     selectedAnswerValue = radioButtons[i].value;
                 }
             }
+            // Store the selected answer in local storage
             localStorage.setItem(`answer${questionNumber}`, selectedAnswerValue);
-            this.submitUserAnswer(radioButtons, selectedAnswerValue)
+            // Submit the user's answer
+            this.submitUserAnswer(radioButtons, selectedAnswerValue);
         });
     }
 
@@ -52,11 +57,13 @@ export class QuizQuestion
     {
         let selectedAnswer = localStorage.getItem(`answer${questionNumber}`);
         if(selectedAnswer)
-        {
+        {   //get the selected answer
             let selectedRadio = document.querySelector(`input[value="${selectedAnswer}"]`);
-            selectedRadio.setAttribute("checked", "checked")
+            // Set the "checked" attribute to display the selected answer
+            selectedRadio.setAttribute("checked", "checked");
             let radioButtons = document.getElementsByClassName('answer');
-            this.submitUserAnswer(radioButtons, selectedAnswer)
+            // Submit the user's answer for displaying the result (correct or wrong)
+            this.submitUserAnswer(radioButtons, selectedAnswer);
         }
     }
 
@@ -86,18 +93,19 @@ export class QuizQuestion
     }
 
     disableAllRadios(radioButtons)
-    {
+    { // Disable each radio button
         for (let i = 0; i < radioButtons.length; i++) {
             radioButtons[i].disabled = true;
         }
     }
 
     compareResult(selectedAnswerValue, correctAnswer)
-    {
+    {// Initialize the user score if not already present in local storage
         if(!localStorage.getItem("score")) {
             localStorage.setItem("score", "0");
         }
         let score = parseInt(localStorage.getItem("score"));
+        // Compare the selected answer with the correct answer
         if(selectedAnswerValue === correctAnswer)
         {
             this.displayResult('green', 'Correct!');
@@ -105,6 +113,7 @@ export class QuizQuestion
         }  else {
             this.displayResult('red', 'Wrong!')
         }
+        // Update the user's score in local storage
         localStorage.setItem("score", JSON.stringify(score));
     }
 
@@ -114,35 +123,46 @@ export class QuizQuestion
     }
 
     enableButtonIfAnswerChecked()
-    {
+    {    // Get all radio buttons representing answer options
         let radioButtons = document.getElementsByClassName('answer');
+        // Add a change event listener to each radio button
         for (let i = 0; i < radioButtons.length; i++) {
             radioButtons[i].addEventListener('change', ()=> {
+                // Enable the "Confirm" button when an answer is selected
                 this.confirmButton.removeAttribute("disabled")
             })
         }
     }
-
+    //to move to the next question after click on the 'confirm' button
     moveToNextQuestion()
-    {
+    {   //add an event to the nextQuestion button
         this.nextQuestionBtn.addEventListener('click', () => {
+            //get the index of the actual question
             let actualQuestionIndex = this.actualQuestionIndex;
+            //increment the index
             actualQuestionIndex++;
+            //add it the local storage
             localStorage.setItem("actual_question", JSON.stringify(actualQuestionIndex));
+            //reload the page
             location.reload()
         })
     }
 
     countDownTimer(count)
-    {
+    {   //get the id og the div count
         let countDiv = document.getElementById("timer")
+        //get the id of the answer
         let radioButtons = document.getElementsByClassName('answer');
         let that = this;
+
         const timer = setInterval(function() {
+            // Decrease the count by 1 each time
             count--;
+            // Check if the count is not zero
             if (  count !== 0) {
                 countDiv.innerHTML ='0' +  count
             } else {
+                // If the count is zero, clear the interval
                 clearInterval(timer);
                 countDiv.innerText= "Time Is UP!"
                 that.submitUserAnswer(radioButtons, null)
