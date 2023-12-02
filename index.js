@@ -16,7 +16,7 @@ ${answer 4}          radioButton
 
 btn =  document.getElementById("btn");
 errorMessage = document.getElementById("validation")
-
+let lastTime;
 btn.addEventListener('click' , () => {
     localStorage.clear();
      saveTime();
@@ -63,9 +63,25 @@ function emptyFieldsError()
 }
 
 function saveTime() {
-        let countInput = document.getElementById("timerInput").value;
-        console.log(countInput)
-        localStorage.setItem("time_per_seconds", countInput);
+    let countInput = document.getElementById("timerInput").value;
+
+     if(countInput >99){
+         emptyFieldsError()
+     }
+        lastTime = parseInt(localStorage.getItem("time_per_seconds")) || 60 ;
+
+        localStorage.setItem("time_per_seconds", lastTime ) ;
+}
+
+function validationLength()
+{
+    let inputCounter = document.getElementById("timerInput");
+    inputCounter.onkeyup = function () {
+        let inpVal = inputCounter.value;
+        if(inpVal.length > 2) {
+            inputCounter.value = inpVal[0] + inpVal[1]
+        }
+    }
 }
 
 

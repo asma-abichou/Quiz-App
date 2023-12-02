@@ -173,7 +173,6 @@ export class QuizQuestion
                 countDiv.innerText= "Time Is UP!";
                 that.submitUserAnswer(radioButtons, null);
             }
-
         }, 1000);
     }
 }

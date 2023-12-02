@@ -13,7 +13,13 @@ class Score
     getScore()
     {
         let numberOfAllQuestions = this.allQuestions.length
-        let finalScore =  (this.numberOfCorrectAnsweredQuestions / numberOfAllQuestions ) * 100;
+        let finalScore = 0
+        if( isNaN(this.numberOfCorrectAnsweredQuestions)){
+           finalScore = 0
+        }else {
+            finalScore =  (this.numberOfCorrectAnsweredQuestions / numberOfAllQuestions ) * 100;
+
+        }
         document.getElementById("score").innerHTML = `<p>Your score is ${finalScore.toFixed(2)}%</p>`;
     }
 
