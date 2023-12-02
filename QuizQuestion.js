@@ -4,6 +4,7 @@ export class QuizQuestion
     {
         this.allQuestions = JSON.parse(localStorage.getItem("quiz_questions"));
         this.questionData = this.allQuestions[questionObjectNumber];
+
     }
     questionDiv = document.getElementById("question");
     answersDiv = document.getElementById("answers");
@@ -12,6 +13,7 @@ export class QuizQuestion
     nextQuestionBtn = document.getElementById("nextQuestionButton");
     getScoreBtn = document.getElementById("getScore");
     actualQuestionIndex = parseInt(localStorage.getItem("actual_question"));
+
 
     getQuestionData(questionNumber)
     {
@@ -148,24 +150,28 @@ export class QuizQuestion
         })
     }
 
-    countDownTimer(count)
-    {   //get the id og the div count
-        let countDiv = document.getElementById("timer")
+    countDownTimer()
+    {
+        let count =  parseInt(localStorage.getItem('time_per_seconds'))
+
+        //get the id og the div count
+        let countDiv = document.getElementById("timer");
         //get the id of the answer
         let radioButtons = document.getElementsByClassName('answer');
         let that = this;
-
         const timer = setInterval(function() {
-            // Decrease the count by 1 each time
-            count--;
             // Check if the count is not zero
             if (  count !== 0) {
-                countDiv.innerHTML ='0' +  count
+
+                // Update the display of the countdown
+                countDiv.innerHTML = `time: ${count}`;
+                // Decrease the count by 1 each time
+                count--;
             } else {
                 // If the count is zero, clear the interval
                 clearInterval(timer);
-                countDiv.innerText= "Time Is UP!"
-                that.submitUserAnswer(radioButtons, null)
+                countDiv.innerText= "Time Is UP!";
+                that.submitUserAnswer(radioButtons, null);
             }
 
         }, 1000);

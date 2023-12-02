@@ -19,7 +19,9 @@ errorMessage = document.getElementById("validation")
 
 btn.addEventListener('click' , () => {
     localStorage.clear();
+     saveTime();
     generateQuizQuestions()
+
 })
 
 
@@ -59,6 +61,58 @@ function emptyFieldsError()
 {
     errorMessage.innerHTML = `<p style="color: #860606; font-weight: bolder; font-style: italic">Please fill all the fields and retry again!</p>`
 }
+
+function saveTime() {
+        let countInput = document.getElementById("timerInput").value;
+        console.log(countInput)
+        localStorage.setItem("time_per_seconds", countInput);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function  countDownTimer(count)
+// {
+//     //localStorage.setItem("quiz_questions", JSON.stringify(count));
+//     //get the id og the div count
+//     let countDiv = document.getElementById("timer")
+//     //get the id of the answer
+//     let radioButtons = document.getElementsByClassName('answer');
+//     let that = this;
+//
+//     const timer = setInterval(function() {
+//
+//         // Check if the count is not zero
+//         if ( count !== 0) {
+//             count--;
+//             countDiv.innerHTML ='0' +  count
+//             // Decrease the count by 1 each time
+//
+//         } else {
+//             // If the count is zero, clear the interval
+//             clearInterval(timer);
+//             countDiv.innerText= "Time Is UP!"
+//             that.submitUserAnswer(radioButtons, null)
+//         }
+//
+//     }, 1000);
+
 // in the index.html page :
 /*
 create an input where the user insert the number of questions
