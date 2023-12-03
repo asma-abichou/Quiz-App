@@ -152,8 +152,8 @@ export class QuizQuestion
 
     countDownTimer()
     {
-        let count =  parseInt(localStorage.getItem('time_per_seconds'))
 
+        let count =  JSON.parse(localStorage.getItem('time_per_seconds'));
         //get the id og the div count
         let countDiv = document.getElementById("timer");
         //get the id of the answer

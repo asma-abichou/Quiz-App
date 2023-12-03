@@ -10,3 +10,4 @@ question.countDownTimer()
 question.enableButtonIfAnswerChecked()
 question.confirmButtonClickEvent(actualQuestionIndex + 1)
 question.moveToNextQuestion()
+

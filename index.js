@@ -17,12 +17,21 @@ ${answer 4}          radioButton
 btn =  document.getElementById("btn");
 errorMessage = document.getElementById("validation")
 let lastTime;
+// when we click on generate quiz button
 btn.addEventListener('click' , () => {
+    let timerValue = JSON.parse(localStorage.getItem("time_per_seconds"));
     localStorage.clear();
-     saveTime();
+    localStorage.setItem("time_per_seconds", JSON.stringify(timerValue));
     generateQuizQuestions()
 
 })
+
+let saveCounterButton = document.getElementById("my_button_save");
+saveCounterButton.onclick = function () {
+    let inputCounterValue = document.getElementById("timerInput").value;
+    localStorage.setItem("time_per_seconds", JSON.stringify(inputCounterValue));
+}
+
 
 
 function generateQuizQuestions()
@@ -62,16 +71,6 @@ function emptyFieldsError()
     errorMessage.innerHTML = `<p style="color: #860606; font-weight: bolder; font-style: italic">Please fill all the fields and retry again!</p>`
 }
 
-function saveTime() {
-    let countInput = document.getElementById("timerInput").value;
-
-     if(countInput >99){
-         emptyFieldsError()
-     }
-        lastTime = parseInt(localStorage.getItem("time_per_seconds")) || 60 ;
-
-        localStorage.setItem("time_per_seconds", lastTime ) ;
-}
 
 function validationLength()
 {
